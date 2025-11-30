@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  * @author NagbontianAliciaBene
  */
 public class guestManagement extends javax.swing.JFrame {
-    
+    // creating arraylist thatstores geust objects
     private ArrayList<Guest> guestList= new ArrayList<>();
             
            
@@ -220,13 +220,15 @@ public class guestManagement extends javax.swing.JFrame {
         String email = txtEmail.getText().trim();
         String IdNumber = txtIdNumber.getText().trim();
         
+        // if id or name is empty shows an error message
         if(id.isEmpty()|| name.isEmpty()){
             JOptionPane.showMessageDialog(this,"geust id and name are required");
-            return;
+            return; // stopping the code
         }
         
+        // creating new geust object
         Guest a = new Guest(id, name, phone, email, IdNumber);
-        guestList.add(a);
+        guestList.add(a); // adds geustto array list
         
         JOptionPane.showMessageDialog(this, "guest is added");
         
@@ -236,26 +238,29 @@ public class guestManagement extends javax.swing.JFrame {
 
     private void showGuestBtnActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:
-        txtAreaOutput.setText("");
+        txtAreaOutput.setText(""); // clears text area
         if (guestList.isEmpty()){
             txtAreaOutput.setText("no geusts can be found");
-            return;
+            return; 
+ // checkkingif list is empty
         }
         
-        for (Guest a : guestList){
-            txtAreaOutput.append(
+        for (Guest a : guestList){ // looping thru every guest object in geust list
+            txtAreaOutput.append( // adding to the end
                     "id:"+a.getGuestID()+
                      "name:"+a.getName()+
                      "phone:"+a.getPhone()+
                      "email:"+a.getEmail()+  
                      "id num:"+a.getIdNumber()+  "\n"      
          );
+            // for each geust itll print their info
         }
         
     }                                            
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
+        //gets the gext user typed in search box
         String key = txtSearch.getText().trim().toLowerCase();
         
         txtAreaOutput.setText("");
@@ -263,14 +268,17 @@ public class guestManagement extends javax.swing.JFrame {
         if (key.isEmpty()){
             txtAreaOutput.setText("field empty");
             return;
-             
+             //checking if field is empty
         }
         
         boolean found = false;
+        //this tracks if a matching guest has been found
         
-        for(Guest a : guestList){
+        for(Guest a : guestList){ //loop thru guest list
             if (a.getName().toLowerCase().contains(key)||
                a.getGuestID().toLowerCase().contains(key)){
+                //check search keyword matche name of id
+                //the contain() lets "ji" match with "jim", bits of a word
                 txtAreaOutput.append(
                     "id:"+a.getGuestID()+
                      "name:"+a.getName()+
@@ -279,11 +287,13 @@ public class guestManagement extends javax.swing.JFrame {
                      "id num:"+a.getIdNumber()+  "\n"      
          );       
                        found = true; 
+                       //finds a match
             }
                     
         }
          if (!found){
              txtAreaOutput.setText("no match found");
+             // if loop ends with no match itll show this message
          }
         
         
@@ -291,16 +301,17 @@ public class guestManagement extends javax.swing.JFrame {
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {                                          
        String id = txtGuestID.getText().trim();
+       //gets geust id
        
        if(id.isEmpty()){
            JOptionPane.showMessageDialog(this, "enter id to delete");
            return;
-       }
+       } //check if field is empty
         
         
-        for (int i = 0; i< guestList.size(); i++){
-            if (guestList.get(i).getGuestID().equals(id)){
-                guestList.remove(i);
+        for (int i = 0; i< guestList.size(); i++){ //loop thru every geust in arraylist
+            if (guestList.get(i).getGuestID().equals(id)){ //check if i index match ID
+                guestList.remove(i); // removes match fom arraylist
                 JOptionPane.showMessageDialog(this, "guest is deleted");
                 return;
             }
